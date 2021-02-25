@@ -1,8 +1,10 @@
 <!--koshnicata za productite na magazina-->
 <?php //new - instancirane na class.Tazi instanciq moje da se prisvoi dynamic vs static
-$dynamicInstance = new TellerController();
-$productCollection = $dynamicInstance->index();
-$dynamicInstance->markProductForBuy();
+//$dynamicInstance = new TellerController();
+//$productCollection = $dynamicInstance->index();
+//$dynamicInstance->markProductForBuy();
+
+//gornoto e ekvivalent na redirect ('teller') and mapping teller/buy
 ?>
 
 <h2>Списък с продукти</h2>
@@ -20,8 +22,9 @@ $dynamicInstance->markProductForBuy();
 //                ]); ?>
                 
                 <?php// $queryId ?>  
-                <a href="?action=mark&id=<?php echo $element['id']?>">Добави в количка</a> 
+                <!-- <a href="/mark?id=<?php //echo $element['id']?>">Добави в количка</a> --> 
 <!--                podavame  Id na elementa-->
+            <?php a('teller/mark', 'Добави в количка', ['id' =>$element['id']]); ?>
             </div>
         </div>
 

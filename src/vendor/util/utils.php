@@ -16,6 +16,15 @@ function url($path) {
     return "/$projectName/$path";
 }
 
+
+function load_view($context, $viewId, $externalVariables) {
+    
+    
+    extract($externalVariables);
+    $viewPath = "view/$context/$viewId.php";
+    include basecontext($viewPath);
+}
+
 function load_controller($controller) {
     include basecontext("src/controllers/front/$controller.php");
 }
@@ -40,12 +49,27 @@ function navigate($path){
     echo url("index.php/$path");
 }
 
-function a($href, $title){
+function buildQueryString($queryParameterCollection = []){
     
-    $url  = url("index.php/$href");
-    echo "<a href ='". $url."'>$title</a>";
+    if(count($queryParameterCollection) == 0) {
+        return "";
+    }
+     $queryString = array();   
+     foreach ($queryParameterCollection as $key => $value){
+        array_push($queryString, "$key=$value");
+    }
+    
+    return "?". implode('&', $queryString);
 }
 
+function a($href, $title, $queryParameterCollection = []){
+    
+        $queryString = buildQueryString($queryParameterCollection);
+    
+        $url  = url("index.php/$href$queryString");
+        echo "<a href ='". $url."'>$title</a>";
+
+}
 
 function redirect($page) {
     $page  = url("index.php/$page");

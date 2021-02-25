@@ -9,10 +9,12 @@
 //          $_POST['tokken'] != 1)   return;
 $username = $_POST['username'];
 //$password = md5($_POST['password']); TODO UNCOMMENT!
-$password = $_POST['password'];
+$password = ($_POST['password']);    //md5($_POST['password']);
 
 $userData = Database::fetchQuery("SELECT * FROM tb_users where username = '$username' AND password = '$password'");
-echo($userData);
+
+//echo($userData);
+
 if(count($userData) == 1) {
     
     // QUERY builder for select statments
@@ -23,9 +25,9 @@ if(count($userData) == 1) {
                 WHERE a.user_id = $userId AND 
                           a.role_id = b.id";
     
-    $userRoleCollection = Database::fetchQuery($query);
+        $userRoleCollection = Database::fetchQuery($query);
     
-    var_dump($userRoleCollection);
+     var_dump($userRoleCollection);
     
     
     User::auth($userData[0], $userRoleCollection);

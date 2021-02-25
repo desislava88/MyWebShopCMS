@@ -59,9 +59,10 @@ static function select($tableName, $columnCollection = array()){
 
 
     static function insert($tableName, $queryPropertyCollection) {
-            echo("insert");
-             echo("$tableName ".$tableName);
-             echo("$queryPropertyCollection ".$queryPropertyCollection);
+             //echo("insert");
+             //echo("$tableName ".$tableName);
+             //echo("$queryPropertyCollection ".$queryPropertyCollection);
+        
         $queryKeies     = "";
         $queryValues    = "";
 
@@ -204,7 +205,7 @@ static function select($tableName, $columnCollection = array()){
     // 3. Manipulation of screen data
     private static function  connect() {
         
-        define('HOST'       , 'localhost');
+        define('HOST'       , '127.0.0.1');
         define('USERNAME'   , 'root');
         define('PASSWORD'   , '');
         define('DBNAME'     , 'cms');

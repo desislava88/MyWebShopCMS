@@ -11,12 +11,14 @@
 
 //
 
-   echo('REGISTER'); 
+   //echo('REGISTER'); 
 $username       = $_POST['username'];
 $password       = $_POST['password'];
 $repeatPassword = $_POST['repeat_password'];
 $email          = $_POST['email'];
- echo('$username'.$username); 
+ 
+//echo('$username'.$username); 
+
  if($username != null)
  {
  
@@ -35,19 +37,19 @@ if(!Validator::hasMinLength($email, 5)) {
 if(!Validator::isRepeatPasswordValid($password, $repeatPassword)) {
     return Message::set('sign_up_info_message', "Original and repeat password does not match");
 }
-echo('before insert'); 
+//echo('before insert'); 
 // TODO : process based on transaction 
 Database::insert('tb_users', array(
     'username'  => Database::str($username),
-    'password'  => Database::str(md5($password)),
+    'password'  => Database::str (md5($password)),//(md5($password)),
     'mail'      => Database::str($email)
 ));
-echo('insert'.insert); 
+//echo('insert'.insert); 
 
 Database::insert('tm_users__user_role', array(
     'user_id'   => Database::getLastInsertedId(),
     'role_id'   => 1 // TODO : Think about something better
 ));
 
-echo("end");
+//echo("end");
  }

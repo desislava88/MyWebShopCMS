@@ -44,10 +44,10 @@ class User {
      * @return type
      */
     private static function getRole() {
-        
+
         if(array_key_exists('user_role', $_SESSION)) {
-            return $_SESSION['user_role'][0]['title'];
+            return ($_SESSION['user_role'][0]['title']);
         }
     }
-    
+   
 }

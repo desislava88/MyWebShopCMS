@@ -13,9 +13,11 @@ include basecontext('src/client/components/dropdown.php');
 include basecontext('src/client/route/guards.php');
 
 $controllerIndex = Loader::getControllerIndex();
-$viewPath        = Loader::getView($controllerIndex);
-$modelCollection = Loader::getModelCollection($controllerIndex);
+//$viewPath        = Loader::getView($controllerIndex);
 $controllerPath  = Loader::getController($controllerIndex);
+$controllerClass = Loader::getControllerClass($controllerIndex);  //TellerController
+$controllerMethod = Loader::getControllerMethod($controllerIndex);
+$modelCollection = Loader::getModelCollection($controllerIndex);
 
 
 
@@ -40,11 +42,17 @@ foreach ($modelCollection as $modelClass) {
 //*load controller
 include basecontext($controllerPath);
 
+//$instance = new $controllerClass();
+////vikame method, kojto e definiran kato promenliva
+//$instance->{$controllerMethod}();
+
+(new $controllerClass())->{$controllerMethod}();
+
 
 //*load VIEW
-if(!is_null($viewPath)){
-    include basecontext($viewPath);
-}
+//if(!is_null($viewPath)){
+//    include basecontext($viewPath);
+//}
 
 //*load base view
 include basecontext('view/layout/footer.php');

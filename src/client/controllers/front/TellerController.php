@@ -12,14 +12,14 @@ class TellerController {
     //spacial function when the class is call. Vika se kogato class se zaredi -onload
     public function __construct() {
         
-        $this-> action = (array_key_exists('action', $_GET))       ? $_GET['action'] : null;
+        //$this-> action = (array_key_exists('action', $_GET))       ? $_GET['action'] : null;
         $this-> productId = (array_key_exists('id', $_GET))        ? $_GET['id'] : null;
         $this-> quantity = (array_key_exists('quantity', $_GET))   ? $_GET['id'] : 1;
         
         $this->modelDataCollection = array(
-            'productId' => ((array_key_exists('id', $_GET))        ? $_GET['id'] : null),
-            'quantity'  => ((array_key_exists('quantity', $_GET))   ? $_GET['id'] : 1),
-            'userId'    => User::getId()
+        ProductModel::PRODUCT_ID    => ((array_key_exists('id', $_GET))        ? $_GET['id'] : null),
+        ProductModel::QUANTITY      => ((array_key_exists('quantity', $_GET))   ? $_GET['id'] : 1),
+        ProductModel::USER_ID       => User::getId()
         );
     }
     
@@ -27,14 +27,23 @@ class TellerController {
     public function index(){
         //return Database::fetch("tb_products");         //Database::query("SELECT * FROM tb_products")
         //return Database::select('tb_products')::fetch();
-        return ProductModel::getAllProducts();
+        //return ProductModel::getAllProducts();
+        
+
+        //call the function load_view
+        load_view('front', 'teller', [
+            'productCollection' =>  ProductModel::getAllProducts()
+        ]);
+        
+        //include basecontext('view/front/view.php');
     }
-    
     
     // za aktualizaciq na dannite
     public function  markProductForBuy() {
         
-        if(!$this->isStateMark())   return;
+        echo "@ from Mark";
+        
+//        if(!$this->isStateMark())   return;
         
        // $isProductAvailable = $this->isProductAvailable();
         
@@ -49,12 +58,14 @@ class TellerController {
             ProductModel::updateProduct($this->modelDataCollection);
             
             //to do refresh controller - data
+            redirect('teller');
+//            $this->index();
         }
     }
     
-    private function isStateMark() {
-      return $this->action == 'mark';
-}
+//    private function isStateMark() {
+//      return $this->action == 'mark';
+//}
 }
 
 
